@@ -4,14 +4,17 @@ public class Mage extends Hero {
 
     public Mage(String inputName) {
         super(inputName);
-        this.strength = 1;
-        this.dexterity = 1 ;
-        this.intelligence = 8 ;
+        setIntelligence(8);
     }
-    public void increaseAttributes(int level) {
-        this.strength+=(1*level);
-        this.dexterity+=(1*level);
-        this.intelligence+=(5*level);
+    @Override
+    public void increaseAttributes(int numberOfLevels) {
+        super.increaseAttributes(numberOfLevels); // any default behavior wanted shared
+        setStrength(getStrength()+(1*numberOfLevels));
+        setDexterity(getDexterity()+(1*numberOfLevels));
+        setIntelligence(getIntelligence()+(5*numberOfLevels));
+
     }
+
+
 
 }
