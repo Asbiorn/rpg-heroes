@@ -9,8 +9,8 @@ public class Weapons extends Items {
     //only missing weapon damage
 
     // Constructor
-    public Weapons(String inputName, int requiredLevel, WeaponType weaponType) {
-        super(inputName, requiredLevel, Slot.WEAPON);
+    public Weapons(String inputName, int requiredLevel,Slot slot, WeaponType weaponType) {
+        super(inputName, requiredLevel, slot);
         this.weaponType = weaponType;
     }
     }

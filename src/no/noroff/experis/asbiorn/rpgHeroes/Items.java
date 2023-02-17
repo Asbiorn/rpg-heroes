@@ -4,11 +4,7 @@ import no.noroff.experis.asbiorn.rpgHeroes.enums.Slot;
 
 
 public abstract class Items {
-    /* All items share the following fields:
-    • Name
-    • RequiredLevel
-    • Slot - which they fit in...
-    */
+
     public String itemName;
     private Integer RequiredLevel;
     protected Slot slot;

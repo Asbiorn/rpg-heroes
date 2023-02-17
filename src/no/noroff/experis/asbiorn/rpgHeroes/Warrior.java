@@ -1,5 +1,7 @@
 package no.noroff.experis.asbiorn.rpgHeroes;
 
+import no.noroff.experis.asbiorn.rpgHeroes.enums.WeaponType;
+
 import java.util.EnumSet;
 
 public class Warrior extends Hero {
@@ -8,6 +10,11 @@ public class Warrior extends Hero {
         super(inputName);
         setStrength(5);
         setDexterity(2);
+    }
+
+    @Override
+    public void setValidWeaponType(EnumSet<WeaponType> validWeaponType) {
+
     }
 
     enum validWeaponTypes {

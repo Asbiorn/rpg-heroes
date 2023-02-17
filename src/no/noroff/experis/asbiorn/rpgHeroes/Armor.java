@@ -1,16 +1,16 @@
 package no.noroff.experis.asbiorn.rpgHeroes;
 
-public class Armor {
+import no.noroff.experis.asbiorn.rpgHeroes.enums.Slot;
+import no.noroff.experis.asbiorn.rpgHeroes.enums.ArmorType;
 
-    // When Armor is created, it needs to have the correct name, required level, slot, armor type, and armor attributes
 
-    enum armorType {
-        Cloth,
-        Leather,
-        Mail,
-        Plate,
+public class Armor extends Items {
+    ArmorType armorType;
+
+    // Constructor
+    public Armor(String inputName, int requiredLevel, Slot slot, ArmorType armorType) {
+        super(inputName, requiredLevel, slot);
+        this.armorType = armorType;
     }
-
-
-
 }
+

@@ -1,6 +1,6 @@
 package no.noroff.experis.asbiorn.rpgHeroes.enums;
 
-    enum ArmorType {
+    public enum ArmorType {
         CLOTH,
         LEATHER,
         MAIL,

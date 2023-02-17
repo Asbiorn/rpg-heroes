@@ -1,8 +1,11 @@
 package no.noroff.experis.asbiorn.rpgHeroes;
 
 import no.noroff.experis.asbiorn.rpgHeroes.enums.Slot;
+import no.noroff.experis.asbiorn.rpgHeroes.enums.WeaponType;
 
+import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public abstract class Hero extends HeroAttributes {
@@ -10,7 +13,7 @@ public abstract class Hero extends HeroAttributes {
     public String heroName;
     private Integer level;
 
-    HashMap<Slot, Items> EquipmentSlots;
+    static HashMap<Slot, Items> EquipmentSlots;
 
     //protected hashMap EquipmentSlots { // hashmap of weapons <Items>?
 
@@ -22,6 +25,7 @@ public abstract class Hero extends HeroAttributes {
         EquipmentSlots = new HashMap<Slot, Items>();
         for (Slot slot : Slot.values()) {
             EquipmentSlots.put(slot, null);
+
         }
 
 
@@ -33,6 +37,7 @@ public abstract class Hero extends HeroAttributes {
     public Integer getLevel() {
         return level;
     }
+
 ///// Setters
     public void setHeroName(String inputName) {
         this.heroName = inputName;
@@ -41,6 +46,8 @@ public abstract class Hero extends HeroAttributes {
         this.level +=level;
         increaseAttributes(level);
     }
+
+
 
 // public shared fields:
     public abstract boolean checkValidWeaponTypes(String weaponType); // nu er jeg ved at lave dette til en method.. måske ok?
@@ -52,9 +59,22 @@ public abstract class Hero extends HeroAttributes {
    /// "DEFAULT" METHODS
  //  public void increaseAttributes(int level) {}; // could be in interface?
 
-
+    public abstract void setValidWeaponType(EnumSet<WeaponType> validWeaponType);
     public abstract void EquipWeapon(Weapons equipment) throws InvalidWeaponException ; //  try catch
 
+    public void displayEquipment() {
+        for (Map.Entry<Slot,Items> entry : EquipmentSlots.entrySet()) {
+            Slot slot = entry.getKey();
+            Items item = entry.getValue();
+            if (item==null) {
+                System.out.println(slot + " : " + item);
+            }
+            else {
+                System.out.println(slot + " : " + item.itemName);
+            }
+
+        }
+    }
     //public abstract void EquipArmor();
 
 
