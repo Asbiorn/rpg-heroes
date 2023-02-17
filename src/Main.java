@@ -1,25 +1,26 @@
 
-import no.noroff.experis.asbiorn.rpgHeroes.Hero;
-import no.noroff.experis.asbiorn.rpgHeroes.Mage;
-import no.noroff.experis.asbiorn.rpgHeroes.Warrior;
+import no.noroff.experis.asbiorn.rpgHeroes.*;
+import no.noroff.experis.asbiorn.rpgHeroes.enums.WeaponType;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Mage mageHero = new Mage("Asbiorn");
-        System.out.println(mageHero.display());
         mageHero.levelUp(1);
-        System.out.println(mageHero.display());
-        mageHero.levelUp(2);
-        System.out.println(mageHero.display());
-        mageHero.levelUp(3);
-        System.out.println(mageHero.display());
+
+        Weapons testKnife = new Weapons("knife",2, WeaponType.DAGGER);
+        Weapons pencil = new Weapons("knife",2, WeaponType.WAND);
+        mageHero.EquipWeapon(testKnife);
 
 
-        Warrior warriorHero = new Warrior("Thor");
-        System.out.println(warriorHero.display());
-        warriorHero.levelUp(1);
-        System.out.println(warriorHero.display());
+        System.out.println(testKnife.itemName + testKnife.getRequiredLevel()+ testKnife.getSlot());
+
+        System.out.println(mageHero.checkValidWeaponTypes("staff"));
+
+//        Warrior warriorHero = new Warrior("Thor");
+//        System.out.println(warriorHero.display());
+//        warriorHero.levelUp(1);
+//        System.out.println(warriorHero.display());
 
 
 

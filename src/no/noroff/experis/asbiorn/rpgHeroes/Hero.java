@@ -1,24 +1,29 @@
 package no.noroff.experis.asbiorn.rpgHeroes;
 
+import no.noroff.experis.asbiorn.rpgHeroes.enums.Slot;
+
+import java.util.HashMap;
+
+
 public abstract class Hero extends HeroAttributes {
     /// ATTRIBUTES
     public String heroName;
     private Integer level;
 
-    /*
-     enums virker, men ikke til at kalde en klasse under, tror jeg.  -  MÅske bruge downcasting!!! som i hero(name:asb, Mage)??? men jeg er slet ikke sikker...
-    enum heroSubClass {
-        Mage,
-        Warrior,
-    }
-    public heroSubClass subClass;
+    HashMap<Slot, Items> EquipmentSlots;
 
-     */ // not part of assginement
+    //protected hashMap EquipmentSlots { // hashmap of weapons <Items>?
 
-// CONSTRUCTOR
+
+    // CONSTRUCTOR
     Hero(String inputName){
        setHeroName(inputName);
         this.level= 1;
+        EquipmentSlots = new HashMap<Slot, Items>();
+        for (Slot slot : Slot.values()) {
+            EquipmentSlots.put(slot, null);
+        }
+
 
     }
 /// GETTERS
@@ -37,8 +42,23 @@ public abstract class Hero extends HeroAttributes {
         increaseAttributes(level);
     }
 
+// public shared fields:
+    public abstract boolean checkValidWeaponTypes(String weaponType); // nu er jeg ved at lave dette til en method.. måske ok?
+
+    //public abstract void ValidArmorTypes();
+    //public abstract void Equipment(); //
+    // try to equip an item, it is valid and levlreq checks okay, attach it on the hashSet?
+
    /// "DEFAULT" METHODS
  //  public void increaseAttributes(int level) {}; // could be in interface?
+
+
+    public abstract void EquipWeapon(Weapons equipment) throws InvalidWeaponException ; //  try catch
+
+    //public abstract void EquipArmor();
+
+
+
 
     public StringBuilder display() {
         StringBuilder builder = new StringBuilder();
@@ -51,6 +71,24 @@ public abstract class Hero extends HeroAttributes {
         builder.append("\nIntelligence: ").append(this.intelligence);
         return builder;
     }
+    /*
+     enums virker, men ikke til at kalde en klasse under, tror jeg.  -  MÅske bruge downcasting!!! som i hero(name:asb, Mage)??? men jeg er slet ikke sikker...
+    enum heroSubClass {
+        Mage,
+        Warrior,
+    }
+    public heroSubClass subClass;
 
+     */ // not part of assginement
+
+    /* Each hero has the following shared fields:
+    * Name
+    • Level - all heroes start at level 1
+    • LevelAttribtues - total from all levels
+    • Equipment - holds currently equipped items
+    • ValidWeaponTypes – a list of weapon types a hero can equip based on their subclass
+    • ValidArmorTypes - a list of armor types a hero can equip based on their subclass
+
+     */
 
 }

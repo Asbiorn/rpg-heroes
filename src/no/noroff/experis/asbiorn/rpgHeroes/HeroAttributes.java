@@ -2,7 +2,7 @@ package no.noroff.experis.asbiorn.rpgHeroes;
 
 public class HeroAttributes {
 
-    /// ATTRIBUTES
+    ////// ATTRIBUTES
     protected int strength;
     protected int dexterity;
     protected int intelligence;
@@ -17,7 +17,7 @@ public class HeroAttributes {
     public int getIntelligence() {
         return intelligence;
     }
-    ///// Setters
+    ////// Setters
     public void setStrength(int strength) {
         this.strength = strength;
     }
@@ -28,7 +28,7 @@ public class HeroAttributes {
         this.intelligence = intelligence;
     }
 
-    // constructor
+    ////// constructor
     HeroAttributes() {
         setStrength(1);
         setDexterity(1);
