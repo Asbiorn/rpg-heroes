@@ -1,5 +1,6 @@
 package no.noroff.experis.asbiorn.rpgHeroes;
 
+import no.noroff.experis.asbiorn.rpgHeroes.enums.ArmorType;
 import no.noroff.experis.asbiorn.rpgHeroes.enums.Slot;
 import no.noroff.experis.asbiorn.rpgHeroes.enums.WeaponType;
 
@@ -10,10 +11,13 @@ import java.util.Map;
 
 public abstract class Hero extends HeroAttributes {
     /// ATTRIBUTES
-    public String heroName;
+    private String heroName;
     private Integer level;
 
     static HashMap<Slot, Items> EquipmentSlots;
+
+    public EnumSet<ArmorType> validArmorType;
+    public EnumSet<WeaponType> validWeaponType;
 
     //protected hashMap EquipmentSlots { // hashmap of weapons <Items>?
 
@@ -21,7 +25,8 @@ public abstract class Hero extends HeroAttributes {
     // CONSTRUCTOR
     Hero(String inputName){
        setHeroName(inputName);
-        this.level= 1;
+       this.level=1;
+
         EquipmentSlots = new HashMap<Slot, Items>();
         for (Slot slot : Slot.values()) {
             EquipmentSlots.put(slot, null);
@@ -59,8 +64,69 @@ public abstract class Hero extends HeroAttributes {
    /// "DEFAULT" METHODS
  //  public void increaseAttributes(int level) {}; // could be in interface?
 
+    public boolean checkLevelRequirement(Items item, Hero hero) {
+        return item.getRequiredLevel() <= hero.getLevel();
+    };
+
+    public void EquipArmor(Armor equipment) throws InvalidArmorException {
+        {
+            try {
+                if (!checkLevelRequirement(equipment,this) ) {
+                    throw new InvalidArmorException(getHeroName() + "'s level is too low to equip that");
+                }
+                if (!(equipment.getClass() == Armor.class)) { // maybe not specified in assignment
+                    throw new InvalidArmorException("Cannot equip " + equipment.getItemName() + "on Armor slot");
+                }
+                if (!this.validArmorType.contains(equipment.armorType)) {
+                    throw new InvalidArmorException("cannot Equip " + equipment.armorType + " type of armor");
+                }
+                if (!(EquipmentSlots.get(equipment.slot)==null)) {
+                    Armor oldItemImbue = (Armor) EquipmentSlots.get(equipment.slot);
+                    EquipmentSlots.replace(equipment.slot,equipment);
+                    this.removeInstances(this,oldItemImbue.imbue);
+
+                }
+                EquipmentSlots.put(equipment.slot, equipment);
+                this.addInstances(this,equipment.imbue);
+                System.out.println("Armor equip success");
+                System.out.println(display());
+
+            }
+            catch (InvalidArmorException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+    public void EquipWeapon(Weapons equipment) throws InvalidWeaponException {
+        {
+            try {
+                if (!checkLevelRequirement(equipment,this) ) {
+                    throw new InvalidWeaponException(getHeroName() + "'s level is too low to equip that");
+                }
+                if (!(equipment.getClass() == Weapons.class)) { // maybe not specified in assignment
+                    throw new InvalidWeaponException("Cannot equip " + equipment.getItemName() + "on Weapon slot");
+                }
+                if (!this.validWeaponType.contains(equipment.weaponType)) {
+                    throw new InvalidWeaponException("cannot Equip " + equipment.weaponType + " type of weapon");
+                }
+                EquipmentSlots.put(equipment.slot, equipment);
+                displayEquipment();
+
+            }
+            catch (InvalidWeaponException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+
     public abstract void setValidWeaponType(EnumSet<WeaponType> validWeaponType);
-    public abstract void EquipWeapon(Weapons equipment) throws InvalidWeaponException ; //  try catch
+   // public abstract void EquipWeapon(Weapons equipment) throws InvalidWeaponException ; //  try catch
 
     public void displayEquipment() {
         for (Map.Entry<Slot,Items> entry : EquipmentSlots.entrySet()) {
@@ -72,13 +138,8 @@ public abstract class Hero extends HeroAttributes {
             else {
                 System.out.println(slot + " : " + item.itemName);
             }
-
         }
     }
-    //public abstract void EquipArmor();
-
-
-
 
     public StringBuilder display() {
         StringBuilder builder = new StringBuilder();
@@ -91,24 +152,5 @@ public abstract class Hero extends HeroAttributes {
         builder.append("\nIntelligence: ").append(this.intelligence);
         return builder;
     }
-    /*
-     enums virker, men ikke til at kalde en klasse under, tror jeg.  -  MÅske bruge downcasting!!! som i hero(name:asb, Mage)??? men jeg er slet ikke sikker...
-    enum heroSubClass {
-        Mage,
-        Warrior,
-    }
-    public heroSubClass subClass;
-
-     */ // not part of assginement
-
-    /* Each hero has the following shared fields:
-    * Name
-    • Level - all heroes start at level 1
-    • LevelAttribtues - total from all levels
-    • Equipment - holds currently equipped items
-    • ValidWeaponTypes – a list of weapon types a hero can equip based on their subclass
-    • ValidArmorTypes - a list of armor types a hero can equip based on their subclass
-
-     */
 
 }

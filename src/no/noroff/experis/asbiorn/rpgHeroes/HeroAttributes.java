@@ -30,14 +30,32 @@ public class HeroAttributes {
 
     ////// constructor
     HeroAttributes() {
-        setStrength(1);
-        setDexterity(1);
-        setIntelligence(1);
-    } // set all attributes to 1
+        setStrength(0);
+        setDexterity(0);
+        setIntelligence(0);
+    }
+    HeroAttributes(int str, int dex, int intl) {
+        setStrength(str);
+        setDexterity(dex);
+        setIntelligence(intl);
+    }
 
     public void increaseAttributes(int numberOfLevels) { //overwritten in subclasses ...
         System.out.println("leveled Up by " + numberOfLevels+"!");
     }
 
+    public void addInstances(HeroAttributes intrinsicHeroAttributes, HeroAttributes imbue) {
+        this.setIntelligence(intrinsicHeroAttributes.getIntelligence() + imbue.getIntelligence());
+        this.setStrength(intrinsicHeroAttributes.getStrength() + imbue.getStrength());
+        this.setDexterity(intrinsicHeroAttributes.getDexterity() + imbue.getDexterity());
+
+    }
+    public void removeInstances(HeroAttributes intrinsicHeroAttributes, HeroAttributes imbue) {
+        this.setIntelligence(intrinsicHeroAttributes.getIntelligence() - imbue.getIntelligence());
+        this.setStrength(intrinsicHeroAttributes.getStrength() - imbue.getStrength());
+        this.setDexterity(intrinsicHeroAttributes.getDexterity() - imbue.getDexterity());
+
+
+    }
 
 }
