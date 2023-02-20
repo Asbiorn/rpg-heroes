@@ -1,42 +1,35 @@
 package no.noroff.experis.asbiorn.rpgHeroes;
 
+import no.noroff.experis.asbiorn.rpgHeroes.enums.ArmorType;
+import no.noroff.experis.asbiorn.rpgHeroes.enums.Slot;
 import no.noroff.experis.asbiorn.rpgHeroes.enums.WeaponType;
 
-import java.util.EnumSet;
+import java.util.*;
 
-public class Warrior extends Hero {
+public class Mage extends Hero {
 
-    public Warrior(String inputName) {
+    public Mage(String inputName) {
         super(inputName);
-        setStrength(5);
-        setDexterity(2);
+        this.setStrength(1);
+        this.setDexterity(1);
+        this.setIntelligence(8);
+        validArmorType  = EnumSet.of(ArmorType.CLOTH);
+        validWeaponType = EnumSet.of(WeaponType.WAND, WeaponType.STAFF);
+
     }
 
-    @Override
-    public void setValidWeaponType(EnumSet<WeaponType> validWeaponType) {
-
-    }
-
-    enum validWeaponTypes {
-        Staffs,
-        Wands,
-    }
-
-
-    public boolean checkValidWeaponTypes(String weaponType) {
-        return false;
-    };
-
-    @Override
-    public void EquipWeapon(Weapons equipment) throws InvalidWeaponException {
-
+    @Override // specific to Subclass!!!!
+    public double getDamagingAttribute() {
+        return (double) this.intelligence;
     }
 
     @Override
     public void increaseAttributes(int numberOfLevels) {
-        super.increaseAttributes(numberOfLevels);
-        setStrength(getStrength()+( 3 *numberOfLevels));
-        setDexterity(getDexterity()+( 2 *numberOfLevels));
-        setIntelligence(getIntelligence()+( 1 *numberOfLevels));
+        super.increaseAttributes(numberOfLevels); // any default behavior wanted to be shared
+        setStrength(getStrength()+(1*numberOfLevels));
+        setDexterity(getDexterity()+(1*numberOfLevels));
+        setIntelligence(getIntelligence()+(5*numberOfLevels));
+
     }
+
 }
